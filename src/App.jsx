@@ -28,34 +28,23 @@ export default function App() {
     return { ...widget, positionData: { ...widget.positionData } }
   })
 
-const [widgetConfig, setWidgetConfig] = useState(() => {
-    f (typeof window !== 'undefined') { 
+ 
+  const [widgetConfig, setWidgetConfig] = useState(() => {
+    if (typeof window !== 'undefined') { 
       const savedConfig = localStorage.getItem('widgetConfig')
       return savedConfig ? JSON.parse(savedConfig) : DEFAULT_CONFIG
     }
     return DEFAULT_CONFIG
-  });
-
+  })
 
   const [saveRequested, setSaveRequested] = useState(false)
 
   function save() {
-   if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') {
       localStorage.setItem('widgetConfig', JSON.stringify(widgetConfig)) 
       setSaveRequested(true) 
-    } // Burada kaydettegimiz arrayi locale işliyoruz
-
-
-     // Aşağıdaki 126. satırda yeşil "Kaydedildi" mesajının oluşturulmasına neden olur. State daha sonra 70. satırdaki setTimeout tarafından tekrar false değerine ayarlanır ve mesaj kaldırılır.
+    }
   }
-
-  /****** Kodunuzu yukarıya yazın*******************************************************************  
- 
- Challenge'ın çözülmesiyle ilgili tüm kodlar yukarıda yer almaktadır. Bu projede bu kod dışında hiçbir şeyin değiştirilmesine veya incelenmesine gerek yok.
-    
- Kendi kodunuzu eklemenin yanı sıra, yukarıda widgetConfig state'inin başlatılma biçiminde yalnızca küçük bir değişiklik yapmanız gerekecektir. Bunun dışında, yukarıdaki kodda da herhangi bir değişiklik yapılmasına gerek yok
-
-***************************************************************************************************/
 
   const widgetComponents = {
     Clock: <Clock />,

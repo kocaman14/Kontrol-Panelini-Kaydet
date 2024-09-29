@@ -28,17 +28,16 @@ export default function App() {
     return { ...widget, positionData: { ...widget.positionData } }
   })
 
-  const [widgetConfig, setWidgetConfig] = useState(() => { //bundan sonra ekran her yenıden baslatıldıgında kaydedilmiş bir şekilde gelicek
-    const newAr = localStorage.getItem('widgetConfig');
-    return newAr ? JSON.parse(newAr) : DEFAULT_CONFIG;
-  })
-
+const [widgetConfig, setWidgetConfig] = useState(() => {
+    const savedConfig = localStorage.getItem('widgetConfig');
+    return savedConfig ? JSON.parse(savedConfig) : DEFAULT_CONFIG;
+  });
 
 
   const [saveRequested, setSaveRequested] = useState(false)
 
   function save() {
-    setSaveRequested(true)
+    setSaveRequested(true);
     localStorage.setItem('widgetConfig', JSON.stringify(widgetConfig)); // Burada kaydettegimiz arrayi locale işliyoruz
 
 

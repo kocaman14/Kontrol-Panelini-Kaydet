@@ -29,17 +29,21 @@ export default function App() {
   })
 
 const [widgetConfig, setWidgetConfig] = useState(() => {
-    const savedConfig = localStorage.getItem('widgetConfig');
-    return savedConfig ? JSON.parse(savedConfig) : DEFAULT_CONFIG;
+    f (typeof window !== 'undefined') { 
+      const savedConfig = localStorage.getItem('widgetConfig')
+      return savedConfig ? JSON.parse(savedConfig) : DEFAULT_CONFIG
+    }
+    return DEFAULT_CONFIG
   });
 
 
   const [saveRequested, setSaveRequested] = useState(false)
 
   function save() {
-    setSaveRequested(true);
-    localStorage.setItem('widgetConfig', JSON.stringify(widgetConfig)); // Burada kaydettegimiz arrayi locale işliyoruz
-
+   if (typeof window !== 'undefined') {
+      localStorage.setItem('widgetConfig', JSON.stringify(widgetConfig)) 
+      setSaveRequested(true) 
+    } // Burada kaydettegimiz arrayi locale işliyoruz
 
 
      // Aşağıdaki 126. satırda yeşil "Kaydedildi" mesajının oluşturulmasına neden olur. State daha sonra 70. satırdaki setTimeout tarafından tekrar false değerine ayarlanır ve mesaj kaldırılır.
